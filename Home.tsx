@@ -1,4 +1,12 @@
-import React, { useState } from "react";
+import { async } from "@firebase/util";
+import {
+  doc,
+  collection,
+  getDoc,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,48 +14,116 @@ import {
   Button,
   Image,
   View,
+  ActivityIndicator,
+  TextInput,
+  Alert,
 } from "react-native";
+import { db } from "./Config";
 // import Card from "./Card";
-import "./ImageGallery";
 
 export default function Home(props) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.chatSpace}>
-        {props.image && (
-          <Image
-            source={{ uri: props.image.uri }}
-            style={{ width: 200, height: 200 }}
-          />
-        )}
+  const upload = () => {
+  
+      if(props.post && props.image != null){
+        props.uploadImage();
+        props.uploadUserData();
+      }
+      else{
+        Alert.alert(
+          'bsdk'
+        )
+      }
 
-        {/* <Card imageData={imageData} /> */}
-        {/* <Card />
-        <Card />
-        <Card /> */}
+
+    
+  };
+
+  const [Arraydata, setArraydata] = useState([]);
+
+  const ref = collection(db, "users");
+
+  const getData = async () => {
+    const data = await getDocs(ref);
+    setArraydata(
+      data.docs.map((items) => {
+        return { ...items.data(), id: items.id };
+      })
+    );
+    console.log(
+      data.docs.map((items) => {
+        return { ...items.data(), id: items.id };
+      })
+    );
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  // useEffect(() => {
+  //   onSnapshot(ref, (users) =>
+  //     setData(
+  //       users.docs.map((category) => ({
+  //         data: category.data(),
+  //         id: category.id,
+  //       }))
+  //     )
+  //   );
+  //   console.log(data);
+  // }, []);
+
+  return (
+    <View style={{ width: "100%", height: "100%" }}>
+      <View style={{ display: "flex", flexWrap: "wrap", width: "80%",height:"50%" }}>
+        {Arraydata.map((item, key) => (
+          <View style={{ width: 60, height: 60 }} key={key}>
+            <Image
+              style={{ width: 50, height: 50 }}
+              source={{ uri: item.ImageUri ? item.ImageUri : null }}
+              alt='sad'
+            />
+            <Text>{item.disciption} </Text>
+          </View>
+        ))}
       </View>
+
+      <Image style={{width:100,height:100}} source={{uri:props.image}}/>
+
+
       {/* Add */}
       <View style={styles.inputSpace}>
+          
+
         <View style={styles.textInput}>
           <TouchableOpacity
             onPress={props.pickImage}
             style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
+              backgroundColor: "green",
+              width: 50,
+              height: 20,
             }}
           >
             <Text style={styles.addBtn}>Add</Text>
           </TouchableOpacity>
+          {/* INPUT TEXT */}
+
+          <TextInput
+            style={{ width: "100%", height: 100, color: "red" }}
+            value={props.post}
+            onChangeText={(content) => props.setPost(content)}
+            placeholder='sex sux'
+          />
+
+          <TouchableOpacity onPress={upload} style={{}}>
+            <Text style={styles.addBtn}>UPLOAD</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity
-            onPress={props.uploadImage}
+            onPress={getData}
             style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
+              backgroundColor: "red",
             }}
           >
-            <Text style={styles.addBtn}>UPLOAD</Text>
+            <Text style={styles.addBtn}>Fuking data</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -55,37 +131,24 @@ export default function Home(props) {
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "red",
-  },
-  chatSpace: {
-    width: "100%",
-    height: "70%",
-    backgroundColor: "white",
-    display: "flex",
-    flex: 1,
-    // flexDirection: "row",
-    // flexWrap: "wrap",
-    // gap: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  // container: {
+  //   width: "100%",
+  //   height: "100%",
+  //   // backgroundColor: "red",
+  // },
+
   inputSpace: {
-    height: "10%",
+    width: "100%",
     backgroundColor: "yellow",
-    flex: 1 / 9,
-    justifyContent: "center",
-    alignItems: "center",
     // borderTopLeftRadius: 20,
     // borderTopRightRadius: 20,
   },
   textInput: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     width: "95%",
-    height: "70%",
-    backgroundColor: "black",
-    borderRadius: 10,
   },
   addBtn: {
     color: "white",
