@@ -3,6 +3,7 @@ import { View, Text, Image, Button } from "react-native";
 import { firebase } from "./Config";
 
 import * as ImagePicker from "expo-image-picker";
+import Home from "./Home";
 
 export default function ImageGallery() {
   const [image, setImage] = useState(null);
@@ -37,15 +38,24 @@ export default function ImageGallery() {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button title='Pick Image' onPress={pickImage} />
+      {/* <Button title='Pick Image' onPress={pickImage} />
       {image && (
         <Image
           source={{ uri: image.uri }}
           style={{ width: 200, height: 200 }}
         />
       )}
-      {/* {uploadProgress > 0 && <Text>{uploadProgress}% uploaded</Text>} */}
-      <Button title='Upload Image' onPress={uploadImage} />
+      <Button title='Upload Image' onPress={uploadImage} /> */}
+      <Home
+        pickImage={pickImage}
+        image={image}
+        uploadImage={uploadImage}
+        // uploadProgress={uploadProgress}
+      />
     </View>
   );
+}
+
+{
+  /* {uploadProgress > 0 && <Text>{uploadProgress}% uploaded</Text>} */
 }

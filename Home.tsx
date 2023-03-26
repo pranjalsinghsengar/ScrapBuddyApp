@@ -1,19 +1,27 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Card from "./Card";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Button,
+  Image,
+  View,
+} from "react-native";
+// import Card from "./Card";
+import "./ImageGallery";
 
-export default function Home() {
+export default function Home(props) {
   return (
     <View style={styles.container}>
       <View style={styles.chatSpace}>
-        {/* {imageData !== null ? (
+        {props.image && (
           <Image
-            source={{ uri: imageData.assets[0].uri }}
+            source={{ uri: props.image.uri }}
             style={{ width: 200, height: 200 }}
           />
-        ) : null} */}
+        )}
 
-        <Card imageData={imageData} />
+        {/* <Card imageData={imageData} /> */}
         {/* <Card />
         <Card />
         <Card /> */}
@@ -22,14 +30,24 @@ export default function Home() {
       <View style={styles.inputSpace}>
         <View style={styles.textInput}>
           <TouchableOpacity
-            onPress={pickImage}
+            onPress={props.pickImage}
             style={{
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <Text style={styles.addBtn}>ADD</Text>
+            <Text style={styles.addBtn}>Add</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={props.uploadImage}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={styles.addBtn}>UPLOAD</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -48,9 +66,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     display: "flex",
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
+    // flexDirection: "row",
+    // flexWrap: "wrap",
+    // gap: 10,
     justifyContent: "center",
     alignItems: "center",
   },
