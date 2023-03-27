@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import useState from "react-usestateref";
+import React, { useEffect, useLayoutEffect } from "react";
 import { View, Text, Image, Button, Alert } from "react-native";
 import { db, storage } from "./Config";
 import { doc, setDoc } from "firebase/firestore";
@@ -19,7 +20,7 @@ export default function ImageGallery() {
   const [uploadProgress, setUploadProgress] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [post, setPost] = useState(null);
-  const [urlOFImg, setUrlOfImg] = useState("");
+  const [urlOFImg, setUrlOfImg, urlOFImgRef] = useState(null);
   // const storage = getStorage()
   // const storageRef = ref(storage);
 
@@ -52,8 +53,42 @@ export default function ImageGallery() {
     // }
   };
 
+  // const uploadUserData = async () => {
+  //   uploadImage();
+  //   try {
+  //     const docRef = await addDoc(collection(db, "users"), {
+  //       ImageUri: urlOFImg,
+  //       disciption: post,
+  //     });
+
+  //     console.log(
+  //       "Document written with ID: ",
+  //       docRef.id,
+  //       ":::ImageURI",
+
+  //       image
+  //     );
+  //     console.log(post);
+  //     if (image != null || post != null || urlOFImg != null) {
+  //       // uploadImage();
+  //       console.log("urlIMG------>:",urlOFImg)
+  //       // setUrlOfImg(null);
+  //       setImage(null);
+  //       setPost(null);
+  //     }
+  //   } catch (e) {
+  //     console.error("Error adding document: ", e);
+  //   }
+  // };
   // useEffect(() => {
   const uploadImage = async () => {
+    // if (image != null || post != null || urlOFImg != null) {
+    //   // uploadImage();
+    // setUrlOfImg(null);
+    //   setImage(null);
+    //   setPost(null);
+    // }
+    // setUrlOfImg(null)
     // Convert Blob to Image Format
     const blobImage = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -119,25 +154,29 @@ export default function ImageGallery() {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setUrlOfImg(downloadURL);
+
+          // uploadUserData();
           console.log("File available at", downloadURL);
+          console.log("url image is herererere:", urlOFImgRef.current);
+          // return;
         });
       }
     );
+
     // cloutd
   };
 
-  // if (image != null) {
-  //   uploadImage();
-  //   setImage(null);
-  // }
-  // }, [image]);
-
-  // CLOUD FIREBASE STORAGE
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   const uploadUserData = async () => {
+    // setUrlOfImg(null)
+    // uploadImage();
+    await sleep(5000);
     try {
       const docRef = await addDoc(collection(db, "users"), {
-        ImageUri: urlOFImg,
+        ImageUri: urlOFImgRef.current,
         disciption: post,
       });
 
@@ -145,32 +184,43 @@ export default function ImageGallery() {
         "Document written with ID: ",
         docRef.id,
         ":::ImageURI",
+
         image
       );
       console.log(post);
+      if (image != null || post != null || urlOFImg != null) {
+        // uploadImage();
+        console.log("urlIMG------>:", urlOFImg);
+        // setUrlOfImg(null);
+        setImage(null);
+        setPost(null);
+      }
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    if (image != null) {
-    uploadImage();
-    setImage(null);
-    setPost(null);
-  }
   };
 
+  // useEffect(()=>{
+  //   uploadImage();
+  //   uploadUserData();
+  // })
+  // if (image != null) {
+  //   uploadImage();
+  //   setImage(null);
+  // }
+  // }, [image]);
 
-
-
-  
+  // CLOUD FIREBASE STORAGE
+  console.log("llllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       {/* <Button title='Pick Image' onPress={pickImage} />
       {image && (
         <Image
-          source={{ uri: image.uri }}
-          style={{ width: 200, height: 200 }}
+        source={{ uri: image.uri }}
+        style={{ width: 200, height: 200 }}
         />
-      )}
+        )}
       <Button title='Upload Image' onPress={uploadImage} /> */}
       <Home
         pickImage={pickImage}
@@ -183,6 +233,7 @@ export default function ImageGallery() {
         post={post}
         uploadUserData={uploadUserData}
         uploadImage={uploadImage}
+        urlOFImg={urlOFImg}
         // uploadProgress={uploadProgress}
       />
     </View>

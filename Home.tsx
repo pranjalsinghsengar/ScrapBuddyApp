@@ -26,6 +26,7 @@ export default function Home(props) {
   
       if(props.post && props.image != null){
         props.uploadImage();
+        
         props.uploadUserData();
       }
       else{
@@ -34,6 +35,7 @@ export default function Home(props) {
         )
       }
 
+      console.log("File available INNN", props.urlOFImg);
 
     
   };
@@ -151,6 +153,6 @@ const styles = StyleSheet.create({
     width: "95%",
   },
   addBtn: {
-    color: "white",
+    color: "blue",
   },
 });
