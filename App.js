@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import Form from "./Form";
 import ImageGallery from "./ImageGallery";
 // import Home from "./Home";
 import Card from "./ImageGallery";
@@ -14,7 +15,8 @@ export default function App() {
     <View style={styles.container}>
       {/* <Home /> */}
       {/* <Tab2/> */}
-      <ImageGallery />
+      {/* <ImageGallery /> */}
+      <Form/>
     </View>
   );
 }

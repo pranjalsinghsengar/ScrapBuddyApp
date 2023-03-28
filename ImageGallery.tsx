@@ -166,14 +166,14 @@ export default function ImageGallery() {
     // cloutd
   };
 
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  // function sleep(ms) {
+  //   return new Promise((resolve) => setTimeout(resolve, ms));
+  // }
 
   const uploadUserData = async () => {
     // setUrlOfImg(null)
     // uploadImage();
-    await sleep(5000);
+    // await sleep(5000);
     try {
       const docRef = await addDoc(collection(db, "users"), {
         ImageUri: urlOFImgRef.current,
