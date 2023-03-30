@@ -23,21 +23,15 @@ import { db } from "./Config";
 
 export default function Home(props) {
   const upload = () => {
-  
-      if(props.post && props.image != null){
-        props.uploadImage();
-        
-        props.uploadUserData();
-      }
-      else{
-        Alert.alert(
-          'bsdk'
-        )
-      }
+    if (props.post && props.image != null) {
+      props.uploadImage();
 
-      console.log("File available INNN", props.urlOFImg);
+      props.uploadUserData();
+    } else {
+      Alert.alert("bsdk");
+    }
 
-    
+    console.log("File available INNN", props.urlOFImg);
   };
 
   const [Arraydata, setArraydata] = useState([]);
@@ -75,7 +69,14 @@ export default function Home(props) {
 
   return (
     <View style={{ width: "100%", height: "100%" }}>
-      <View style={{ display: "flex", flexWrap: "wrap", width: "80%",height:"50%" }}>
+      <View
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          width: "80%",
+          height: "50%",
+        }}
+      >
         {Arraydata.map((item, key) => (
           <View style={{ width: 60, height: 60 }} key={key}>
             <Image
@@ -88,24 +89,17 @@ export default function Home(props) {
         ))}
       </View>
 
-      <Image style={{width:100,height:100}} source={{uri:props.image}}/>
-
+      <Image
+        style={{ width: 100, height: 100 }}
+        source={{ uri: props.image }}
+      />
 
       {/* Add */}
       <View style={styles.inputSpace}>
-          
-
+        <TouchableOpacity onPress={props.pickImage} style={styles.addBtn}>
+          <Text>Add</Text>
+        </TouchableOpacity>
         <View style={styles.textInput}>
-          <TouchableOpacity
-            onPress={props.pickImage}
-            style={{
-              backgroundColor: "green",
-              width: 50,
-              height: 20,
-            }}
-          >
-            <Text style={styles.addBtn}>Add</Text>
-          </TouchableOpacity>
           {/* INPUT TEXT */}
 
           <TextInput

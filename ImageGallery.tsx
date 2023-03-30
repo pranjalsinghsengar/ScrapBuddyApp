@@ -4,7 +4,7 @@ import { View, Text, Image, Button, Alert } from "react-native";
 import { db, storage } from "./Config";
 import { doc, setDoc } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
-
+import "./Upload";
 import * as ImagePicker from "expo-image-picker";
 import Home from "./Home";
 import {
@@ -14,8 +14,9 @@ import {
   uploadBytes,
   uploadBytesResumable,
 } from "firebase/storage";
+import DisplayProduct from "./DisplayProduct";
 
-export default function ImageGallery() {
+const ImageGallery = (props) => {
   const [image, setImage] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(false);
   const [transferred, setTransferred] = useState(0);
@@ -213,7 +214,14 @@ export default function ImageGallery() {
   // CLOUD FIREBASE STORAGE
   console.log("llllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "red",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       {/* <Button title='Pick Image' onPress={pickImage} />
       {image && (
         <Image
@@ -222,6 +230,8 @@ export default function ImageGallery() {
         />
         )}
       <Button title='Upload Image' onPress={uploadImage} /> */}
+      {/* <DisplayProduct/> */}
+
       <Home
         pickImage={pickImage}
         image={image}
@@ -238,8 +248,9 @@ export default function ImageGallery() {
       />
     </View>
   );
-}
+};
 
+export default ImageGallery;
 {
   /* {uploadProgress > 0 && <Text>{uploadProgress}% uploaded</Text>} */
 }
