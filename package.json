@@ -8,20 +8,20 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
-  "rnpm": {
+
     "assets": [
       "./assets/Poppins/"
-    ]
-  },
+    ],
 
   "dependencies": {
-    "@expo-google-fonts/open-sans": "^0.2.3",
     "@react-native-picker/picker": "^2.4.9",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "6.6.1",
     "@react-navigation/stack": "6.2.1",
     "@types/react": "~18.0.27",
+    "adb": "^0.2.0",
+    "android": "^0.0.8",
     "expo": "~48.0.6",
     "expo-asset": "~8.9.1",
     "expo-dev-client": "~2.1.5",
@@ -34,7 +34,6 @@
     "react-icons": "^4.8.0",
     "react-native": "0.71.3",
     "react-native-image-picker": "^5.3.1",
-    "react-native-inset-shadow": "^1.0.3",
     "react-native-picker-select": "^8.0.4",
     "react-native-vector-icons": "^9.2.0",
     "react-usestateref": "^1.0.8",
