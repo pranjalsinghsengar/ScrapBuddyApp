@@ -21,7 +21,7 @@ import {
 import { db } from "./Config";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
-import InsetShadow from 'react-native-inset-shadow'
+
 import Upload from "./Upload";
 // import Icon from 'react-native-ionicons'
 
@@ -93,7 +93,7 @@ const DisplayProduct = ({ navigation }) => {
         {Arraydata.map((item, key) => (
           <Pressable
             style={{
-              width: 200,
+              width: 190,
               height: 250,
               display: "flex",
               justifyContent: "center",

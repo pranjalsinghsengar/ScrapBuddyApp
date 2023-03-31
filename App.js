@@ -15,6 +15,7 @@ import Upload from "./Upload";
 import HomeWindow from "./HomeWindow";
 import ImageDispalyWindow from "./ImageDispalyWindow";
 import { useFonts } from 'expo-font'
+import LoginScreen from "./LoginScreen.tsx";
 // import "./ExportModule"
 
 
@@ -37,7 +38,8 @@ const Stack = createNativeStackNavigator();
       <NavigationContainer >
         {/* <MyTabs /> */}
 
-      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeWindow} />
         <Stack.Screen name="DisplayProducts" component={DisplayProduct} />
         <Stack.Screen name="Upload" component={Upload} />

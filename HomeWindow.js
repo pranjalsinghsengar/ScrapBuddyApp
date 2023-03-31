@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import DisplayProduct from "./DisplayProduct";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Upload from "./Upload";
+import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 
 const HomeWindow = ({ navigation }) => {
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <View style={styles.homeWindow}>
+
       {/* ScrapBuddy Title */}
       <View style={styles.HeadTitle}>
         <Text style={styles.HeadTitle_Text}> Scrap Buddy </Text>
@@ -28,7 +37,7 @@ const HomeWindow = ({ navigation }) => {
               <Text> Wood </Text>
             </View>
             <View style={styles.card_Categories}>
-              <Text> Wood </Text>
+              <Text> Wood </Text> 
             </View>
             <View style={styles.card_Categories}>
               <Text> Wood </Text>
@@ -96,6 +105,7 @@ const styles = StyleSheet.create({
   homeWindow: {
     width: "100%",
     height: "100%",
+    fontFamily: 'Inter_900Black'
     // fontFamily: {OpenSans_400Regular}
     // backgroundColor: "red",
   },
@@ -105,7 +115,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: "20%",
-    fontFamily:'Poppins'
+    fontFamily: 'Inter_900Black'
+
     // paddingTop: 50,
     // paddingBottom: 50,
   },
